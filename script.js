@@ -14,6 +14,9 @@ function addName() {
     if (isStart) {
         return alert("Game is Started")
     }
+    if (players.length == 8) {
+        return alert("เกมนี้เล่นได้แค่ 8 คน")
+    }
     const input = document.getElementById('nameInput');
     const name = input.value.trim(); // Remove extra spaces
     if (name) {
