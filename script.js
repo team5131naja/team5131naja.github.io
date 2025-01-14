@@ -2,13 +2,16 @@ let players = []
 
 let data = new Map()
 const sampleRat = ["Rat_1","Rat_2","Rat_3","Rat_4","Rat_5","Rat_6","Rat_7"]
-let rat
+let rat = []
 let opened = []
 let randomCube = false
 
 let selectedNumber = new Map()
 
 let currentPopup
+
+const controller = new AbortController();
+const { signal } = controller;
 
 function addName() {
     if (isStart) {
@@ -193,7 +196,7 @@ function playGame() {
     if (!isStart) {
         console.log("tesd")
         isStart = true
-        rat = sampleRat
+        rat = [...sampleRat]
         const play_btn = document.getElementById("play-btn")
         play_btn.textContent = "Stop"
         play_btn.classList.remove("bg-green-500")
@@ -203,8 +206,11 @@ function playGame() {
         let i = 1;
         players.forEach(el => {
             el.classList.remove("text-gray-400")
+            console.log(el)
             el.addEventListener('click', () => {
                 showPopup(el.textContent);
+                console.log(el.textContent)
+                console.log("wadadawawd")
                 el.classList.add('text-black', "bg-slate-300");
             });
             const name = el.textContent
@@ -214,24 +220,62 @@ function playGame() {
                     const selRat = Math.floor(Math.random() * rat.length)
                     data.set(name, rat[selRat])
                     rat = removeItemOnce(rat, rat[selRat])
+                    console.log("1")
                 } else {
                     data.set(name, "Thief_Rat")
                 }
             } else {
                 const selRat = Math.floor(Math.random() * rat.length)
                 data.set(name, rat[selRat])
+                console.log(rat[selRat])
                 rat = removeItemOnce(rat, rat[selRat])
+                
             }
             i++
         })
     } else {
-        location.reload()
-        // isStart = false
+        temp = []
+        isStart = false
+        
+        // players
+        btn1Select = false
+        btn2Select = false
+
+        btn1Number = 0
+        btn2Number = 0
         // players = []
-        // const play_btn = document.getElementById("play-btn")
-        // play_btn.textContent = "Start"
-        // play_btn.classList.add("bg-green-500")
-        // play_btn.classList.remove("bg-red-500")
+        const list = document.getElementById('nameList');
+        while (list.firstChild) {
+            list.removeChild(list.lastChild);
+          }
+        players.forEach(el => {
+            const list = document.getElementById('nameList');
+            const listItem = document.createElement('li');
+            listItem.textContent = el.textContent;
+            console.log(el.textContent)
+            listItem.className = "p-4 w-full border border-black bg-blue-500 rounded-md cursor-pointer hover:underline";
+
+            list.appendChild(listItem);
+            temp.push(listItem)
+        });
+
+        players = []
+
+        temp.forEach(el => {
+            players.push(el)
+            console.log(el.textContent)
+        })
+        
+        randomCube = false
+        selectedNumber = new Map()
+        opened = []
+        data = new Map()
+        // controller.abort();
+        // controller.signal()
+        const play_btn = document.getElementById("play-btn")
+        play_btn.textContent = "Start"
+        play_btn.classList.add("bg-green-500")
+        play_btn.classList.remove("bg-red-500")
         // const list = document.getElementById('nameList');
         // let child = list.lastElementChild;
         // while (child) {
@@ -240,6 +284,8 @@ function playGame() {
         // }
     }
 }
+
+let temp = []
 
 function removeItemOnce(arr, value) {
     var index = arr.indexOf(value);
