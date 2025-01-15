@@ -22,7 +22,7 @@ function addName() {
         return alert("เกมนี้เล่นได้แค่ 8 คน")
     }
     const input = document.getElementById('nameInput');
-    const name = input.value.trim(); // Remove extra spaces
+    const name = input.value.trim();
     if (name) {
         let skip = false
         players.forEach(pl => {
