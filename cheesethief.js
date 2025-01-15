@@ -65,7 +65,7 @@ function showPopup(name) {
             console.log(result)
             Swal.fire({
                 title: 'กด Yes เพื่อยืนยันเลข',
-                showConfirmButton: !(ratData == "Thief_Rat"),
+                showConfirmButton: !(ratData == "Thief_Rat" && players.length == 4),
                 confirmButtonText: 'Yes',
                 html: `เลขที่สุ่มได้ <b class="text-xl"></b>`,
                 allowOutsideClick: false,
