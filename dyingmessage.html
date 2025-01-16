@@ -53,6 +53,12 @@
              class="grid grid-cols-3 gap-4 mt-4">
             <!-- Cards will appear here -->
         </div>
+
+        <h2 class="text-xl font-bold mt-6">Trash Cards:</h2>
+        <div id="trashCardContainer" 
+             class="grid grid-cols-3 gap-4 mt-4">
+            <!-- Cards will appear here -->
+        </div>
     </div>
 
     <script>
@@ -94,6 +100,7 @@
         const selectedContainer = document.getElementById("selectedItems");
         const cardContainer = document.getElementById("cardContainer");
         const allCardContainer = document.getElementById("allCardContainer");
+        const trashCardContainer = document.getElementById("trashCardContainer");
         
         const selectedCards = [];
 
@@ -152,6 +159,8 @@
             });
         }
 
+        const trashCards = []
+
         function generateAllCards() {
             allCardContainer.innerHTML = "";
             const groups = [];
@@ -162,8 +171,40 @@
                 group.forEach(clue => {
                     const card = document.createElement("div");
                     card.textContent = clue;
-                    card.className = "p-4 bg-blue-100 text-center font-bold rounded shadow cursor-pointer";
+                    card.className = "p-4 bg-red-100 text-center font-bold rounded shadow cursor-pointer";
                     allCardContainer.appendChild(card);
+                });
+            });
+        }
+
+        function generateAllCards() {
+            allCardContainer.innerHTML = "";
+            const groups = [];
+            for (let i = 0; i < selectedCards.length; i += 9) {
+                groups.push(selectedCards.slice(i, i + 9));
+            }
+            groups.forEach(group => {
+                group.forEach(clue => {
+                    const card = document.createElement("div");
+                    card.textContent = clue;
+                    card.className = "p-4 bg-red-100 text-center font-bold rounded shadow cursor-pointer";
+                    allCardContainer.appendChild(card);
+                });
+            });
+        }
+
+        function generateAllTrash() {
+            trashCardContainer.innerHTML = "";
+            const groups = [];
+            for (let i = 0; i < trashCards.length; i += 9) {
+                groups.push(trashCards.slice(i, i + 9));
+            }
+            groups.forEach(group => {
+                group.forEach(clue => {
+                    const card = document.createElement("div");
+                    card.textContent = clue;
+                    card.className = "p-4 bg-yellow-100 text-center font-bold rounded shadow cursor-pointer";
+                    trashCardContainer.appendChild(card);
                 });
             });
         }
@@ -194,10 +235,14 @@
                 if (!card.classList.contains("bg-green-500")) {
                     card.classList.add("cursor-not-allowed", "opacity-50");
                     card.onclick = null; // Disable click event
+                    if (!trashCards.includes(card.textContent)) {
+                        trashCards.push(card.textContent)
+                    }
                 }
             });
 
             generateAllCards()
+            generateAllTrash()
         }
 
         document.getElementById("startButton").addEventListener("click", generateCards);
