@@ -109,7 +109,7 @@ function showPopup(name) {
     Swal.fire({
       title: name,
       html: `<h1 class="text-2xl" style="color: ${ratShowColor};">${role}</h1>`,
-      imageUrl: `/public/dyingmessage/roles/${role}.PNG`,
+      imageUrl: `/public/dyingmessage/roles/${role}.png`,
       confirmButtonText: 'Confirm',
       allowOutsideClick: false,
       allowEscapeKey: false,
