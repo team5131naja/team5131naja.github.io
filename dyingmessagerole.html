@@ -58,7 +58,7 @@
     </button>
     <button
       onclick="checkData()"
-      class="bg-black text-white px-4 py-2 w-full rounded-lg"
+      class="bg-black text-white px-4 py-2 w-full rounded-lg mb-10"
     >
       Check Data
     </button>
@@ -67,11 +67,13 @@
     <script>
 
 // List of 160 items
-const static_roles = ["สามัญชน", "ฆาตกร", "นักมวย", "ขุนนาง"];
+const static_roles = ["สามัญชน", "ฆาตกร", "นักมวย", "ขุนนาง", "คนเก็บขยะ", "ฆาตกรสังหารหมู่",
+    "ฆาตรกรมืออาชีพ", "จาร์วิส", "ดารา", "ตัวประกันติดระเบิด", "นักนิติวิทยาศาสตร์", "นักสืบเอกชน", "เนื้อคู่",
+    "ผู้บงการ", "ลูกน้องฆาตกร"
+];
 
-const bad = ["ฆาตกร"]
-const good = ["สามัญชน"]
-
+const bad = ["ฆาตกร", "ฆาตกรสังหารหมู่", "ฆาตรกรมืออาชีพ", "ผู้บงการ", "ลูกน้องฆาตกร"]
+const good = ["สามัญชน", "นักมวย", "ขุนนาง", "คนเก็บขยะ", "จาร์วิส", "ดารา", "ตัวประกันติดระเบิด", "นักนิติวิทยาศาสตร์", "นักสืบเอกชน", "เนื้อคู่"]
 const resultsContainer = document.getElementById("results");
 const selectedContainer = document.getElementById("selectedItems");
 
