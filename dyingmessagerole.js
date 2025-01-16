@@ -99,7 +99,6 @@ function isBadOrGoodColor(role) {
   }
 }
 
-// import Swal from 'sweetalert2'
 function showPopup(name) {
   if (!opened.includes(name)) {
     opened.push(name)
@@ -208,8 +207,8 @@ function find(name) {
 
 function checkData() {
   let str = ""
-  selectedNumber.forEach((v, k) => {
-    str += k + " ได้เป็น " + data.get(k) + " เวลาตื่น " + v + "\n"
+  data.forEach((v, k) => {
+    str += k + " ได้เป็น " + v + "\n"
   })
   alert(str)
 }
