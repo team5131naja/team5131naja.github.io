@@ -1,505 +1,100 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Golf Flashcards · 40 คำศัพท์ (ตรงตามชีท + คำอ่าน)</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background: linear-gradient(145deg, #1b4d3d 0%, #2a6b4f 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      margin: 0;
-    }
-
-    .app {
-      max-width: 720px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 48px;
-      padding: 28px 24px 36px;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 1.9rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: #f3f9e9;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    h1 span {
-      background: #f3b33d;
-      color: #1e3a2e;
-      font-size: 1rem;
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-weight: 700;
-      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .stats-bar {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 100px;
-      padding: 8px 16px;
-      margin-bottom: 24px;
-      color: #e0f0e0;
-      font-weight: 500;
-      font-size: 0.95rem;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .stats-bar div {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .stats-bar i {
-      font-style: normal;
-      font-size: 1.2rem;
-    }
-
-    .flashcard-container {
-      perspective: 1500px;
-      margin-bottom: 28px;
-      min-height: 300px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .flashcard {
-      width: 100%;
-      min-height: 300px;
-      background: #fcf9f0;
-      background-image: radial-gradient(circle at 20% 30%, #ffffff 0%, #f5efe3 100%);
-      border-radius: 40px;
-      box-shadow: 0 25px 35px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px #d9cdb0 inset, 0 0 0 4px #ffffff80 inset;
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: transform 0.25s ease, box-shadow 0.3s;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .flashcard:active {
-      transform: scale(0.98);
-    }
-
-    .term {
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: #1b4d3d;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      line-height: 1.2;
-      word-break: break-word;
-      text-shadow: 2px 2px 0 rgba(255, 255, 240, 0.8);
-      margin-bottom: 6px;
-    }
-
-    .pronunciation {
-      font-size: 1.15rem;
-      color: #8a7a55;
-      font-weight: 500;
-      font-family: 'Courier New', monospace;
-      margin-bottom: 18px;
-      letter-spacing: 0.5px;
-    }
-
-    .meaning {
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: #2e5e3f;
-      background: rgba(255, 245, 210, 0.6);
-      padding: 14px 22px;
-      border-radius: 30px;
-      max-width: 100%;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .hint {
-      font-size: 1rem;
-      color: #b0a78b;
-      margin-top: 20px;
-      letter-spacing: 1px;
-      font-weight: 500;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 60px;
-      padding: 16px 28px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      box-shadow: 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex: 1 0 140px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .btn:active {
-      transform: translateY(3px);
-      box-shadow: 0 7px 0 rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn:disabled {
-      opacity: 0.45;
-      transform: translateY(5px);
-      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
-      pointer-events: none;
-      filter: grayscale(0.5);
-    }
-
-    .btn-remember {
-      background: #58b368;
-      color: #1a3a1e;
-      box-shadow: 0 10px 0 #2f6a3a, 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-forget {
-      background: #e68a6e;
-      color: #3d1e14;
-      box-shadow: 0 10px 0 #a65238, 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-reset {
-      background: #e0cfa4;
-      color: #2b3e2b;
-      box-shadow: 0 10px 0 #a0926b, 0 5px 15px rgba(0, 0, 0, 0.3);
-      flex: 0.6 1 100px;
-      font-size: 1rem;
-      padding: 14px 16px;
-    }
-
-    .btn-reset:active {
-      transform: translateY(3px);
-      box-shadow: 0 7px 0 #a0926b, 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .progress-badge {
-      text-align: center;
-      margin-top: 20px;
-      color: #d4e6c3;
-      font-size: 1rem;
-      font-weight: 500;
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .progress-badge span {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 6px 18px;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
-    }
-
-    .completed-message {
-      background: #f3e9c0;
-      color: #1e3a2e;
-      padding: 28px 20px;
-      border-radius: 40px;
-      font-size: 1.7rem;
-      font-weight: 700;
-      text-align: center;
-      line-height: 1.5;
-      box-shadow: inset 0 -6px 0 #b8a87c, 0 20px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .completed-message small {
-      display: block;
-      font-size: 1.1rem;
-      font-weight: 400;
-      margin-top: 12px;
-      color: #4d5e3e;
-    }
-
-    @media (max-width: 500px) {
-      .app {
-        padding: 18px 14px 28px;
-        border-radius: 32px;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .term {
-        font-size: 2rem;
-      }
-
-      .pronunciation {
-        font-size: 1rem;
-      }
-
-      .meaning {
-        font-size: 1.15rem;
-        padding: 10px 16px;
-      }
-
-      .btn {
-        font-size: 1rem;
-        padding: 14px 18px;
-      }
-
-      .flashcard {
-        padding: 20px 14px;
-        min-height: 260px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Golf</title>
+<style>
+body{font-family:sans-serif;background:#1b4d3d;color:#fff;padding:20px;text-align:center}
+.card{background:#fcf9f0;color:#1b4d3d;border-radius:20px;padding:30px;max-width:500px;margin:20px auto;cursor:pointer}
+.term{font-size:2rem;font-weight:bold}
+.pron{color:#8a7a55;font-family:monospace;margin:10px 0}
+.meaning{background:#fff5d2;padding:15px;border-radius:15px;font-size:1.2rem;margin-top:10px;display:none}
+.hint{color:#b0a78b;font-size:.9rem;margin-top:10px}
+button{padding:12px 24px;margin:6px;border:none;border-radius:30px;font-size:1rem;font-weight:bold;cursor:pointer}
+#rBtn{background:#58b368}
+#fBtn{background:#e68a6e}
+#reBtn{background:#e0cfa4}
+</style>
 </head>
 <body>
-  <div class="app">
-    <h1>
-      ⛳ GOLF FLASHCARDS
-      <span>40 คำ</span>
-    </h1>
+<h1>⛳ GOLF Flashcards</h1>
+<div>เหลือ <span id="r">40</span> | จำได้ <span id="m">0</span> | จำไม่ได้ <span id="f">0</span></div>
+<div id="box"></div>
+<button id="fBtn">😵 จำไม่ได้</button>
+<button id="rBtn">😎 จำได้</button>
+<button id="reBtn">🔄 รีเซ็ท</button>
+<script>
+var terms=[
+{t:"ADDRESS",p:"/əˈdres/",m:"ตำแหน่งที่ผู้เล่นยืนก่อนตีลูกออกไป"},
+{t:"AMATEUR",p:"/ˈæmətər/",m:"ผู้เล่นกอล์ฟเชิงกีฬา ไม่ใช่อาชีพ"},
+{t:"APPROACH",p:"/əˈproʊtʃ/",m:"การตีลูกขึ้นกรีน หรือบริเวณหน้าธุริน"},
+{t:"BACKSPIN",p:"/ˈbækspɪn/",m:"การตีให้ลูกหมุนถอยหลัง เพื่อให้ลูกตกและหยุดวิ่งโดยเร็ว"},
+{t:"BIRDIE",p:"/ˈbɜːrdi/",m:"การทำแต้มน้อยกว่าที่หลุมกำหนด 1 แต้ม"},
+{t:"BOGEY",p:"/ˈboʊɡi/",m:"การทำแต้มมากกว่าที่หลุมกำหนด 1 แต้ม"},
+{t:"BUNKER",p:"/ˈbʌŋkər/",m:"บ่อทราย หรือหลุมทราย"},
+{t:"CADDIE",p:"/ˈkædi/",m:"ใครก็ได้ที่แบกถุงกอล์ฟให้ บางครั้งให้คำแนะนำด้วย"},
+{t:"CASUAL WATER",p:"/ˈkæʒuəl ˈwɔːtər/",m:"น้ำที่ไหลมารวมกันในบางขณะ ที่ไม่ใช่เป็นบ่อ หรือแอ่งน้ำที่ทำไว้เป็นอุปสรรค"},
+{t:"CHIP SHOT",p:"/tʃɪp ʃɑːt/",m:"การตีลูกสั้นข้างกรีนให้ไปใกล้หลุม"},
+{t:"DIVOT",p:"/ˈdɪvət/",m:"รอยที่เกิดจากหน้าไม้ที่ตีลูกลึกลงไปในดิน ทำให้แซะหน้าชิ้นมาด้วย"},
+{t:"DOGLEG",p:"/ˈdɔːɡleɡ/",m:"หลุมที่มีแนวเลี้ยวไปทางซ้ายหรือขวา"},
+{t:"DOUBLE BOGEY",p:"/ˈdʌbəl ˈboʊɡi/",m:"การทำแต้มมากกว่าที่หลุมกำหนด 2 แต้ม"},
+{t:"DRAW",p:"/drɔː/",m:"ลูกที่ตีแล้วโค้งไปทางซ้ายแต่น้อยกว่า HOOK"},
+{t:"DRIVE",p:"/draɪv/",m:"การตีครั้งแรกโดยธรรมดาที่จากหมุดไม้ จากแท่นออก (TEE OFF)"},
+{t:"DRIVER",p:"/ˈdraɪvər/",m:"ไม้กอล์ฟที่ตีได้ไกลที่สุดในชุด ใช้ตีลูกจากแท่นออก (TEE OFF) ในหลุมที่มีระยะไกล"},
+{t:"EAGLE",p:"/ˈiːɡəl/",m:"การทำแต้มต่ำกว่าที่หลุมกำหนด 2 แต้ม"},
+{t:"FAIRWAY",p:"/ˈferweɪ/",m:"สนามหญ้าระหว่างแท่นออกกับกรีน"},
+{t:"FORE",p:"/fɔːr/",m:"คำร้องเตือนให้ทุกคนระวังอันตรายที่เกิดจากการตีลูก"},
+{t:"GROSS",p:"/ɡroʊs/",m:"แต้มที่ตีจริงต่อรอบหรือตลอดการแข่งขันของนักกอล์ฟ"},
+{t:"HAZARD",p:"/ˈhæzərd/",m:"หลุมทรายที่สร้างขึ้น"},
+{t:"HOOK",p:"/hʊk/",m:"การตีลูกที่เลี้ยวซ้ายมากๆ"},
+{t:"IRONS",p:"/ˈaɪərnz/",m:"ไม้กอล์ฟที่มีหัวเป็นเหล็ก (ยกเว้นไม้พัตเตอร์)"},
+{t:"LIE",p:"/laɪ/",m:"ตำแหน่งของลูกบนสนามหรือกรีน"},
+{t:"MATCH PLAY",p:"/mætʃ pleɪ/",m:"การแข่งขันโดยถือจำนวนหลุมเป็นเครื่องกำหนด ผู้ชนะคือผู้ที่ชนะหลุมมากกว่า"},
+{t:"NET",p:"/net/",m:"แต้มรวมครั้งสุดท้ายได้จากการหักแต้มต่อออกแล้ว"},
+{t:"OUT OF BOUNDS",p:"/aʊt əv baʊndz/",m:"พื้นที่นอกเขตที่กำหนดในสนามกอล์ฟ"},
+{t:"PAR",p:"/pɑːr/",m:"การทำแต้มได้เท่ากับแต้มที่หลุมกำหนด"},
+{t:"PITCH SHOT",p:"/pɪtʃ ʃɑːt/",m:"การตีลูกด้วยไม้ที่หน้าไม้เอียงมากๆ เพื่อให้ลูกหยุดเร็วบนกรีน"},
+{t:"PUNCH SHOT",p:"/pʌntʃ ʃɑːt/",m:"การตีให้ลูกกอล์ฟพุ่งต่ำกว่าปกติ"},
+{t:"PUTT",p:"/pʌt/",m:"การตีเบาๆ ให้ลูกกลิ้งบนพื้นเพื่อให้ลงหลุม"},
+{t:"PUTTER",p:"/ˈpʌtər/",m:"ไม้กอล์ฟที่ใช้สำหรับตีลูกบนกรีน"},
+{t:"ROUGH",p:"/rʌf/",m:"พื้นที่ที่ไม่มีการดูแลรักษา ไม่ใช่ส่วนของพื้นที่เล่น"},
+{t:"SHANK",p:"/ʃæŋk/",m:"ตีถูกลอยของหัวไม้ทำให้ลูกวิ่งเลียดไปทางขวา"},
+{t:"SLICE",p:"/slaɪs/",m:"การตีลูกหมุนตามเข็มนาฬิกา ทำให้ลูกเลี้ยวเป็นวงไปทางขวา"},
+{t:"STROKE PLAY",p:"/stroʊk pleɪ/",m:"การแข่งขันโดยถือจำนวนครั้งที่ตีเป็นเครื่องกำหนดผู้แพ้หรือชนะ"},
+{t:"TEE",p:"/tiː/",m:"หมุดที่ปักแล้วเอาลูกวางบนหมุดเพื่อตีในครั้งแรกในหลุมหนึ่งๆ"},
+{t:"TEE OFF",p:"/tiː ɔːf/",m:"การตีครั้งแรกในหลุมหนึ่งๆ โดยธรรมดาจะตีด้วยไม้ DRIVER"},
+{t:"TOP",p:"/tɑːp/",m:"การตีถูกลูกที่ส่วนบนสุดของลูก"},
+{t:"WOODS",p:"/wʊdz/",m:"ไม้กอล์ฟที่ก้านยาวๆ สำหรับตีลูกจากแท่นออก หรือบนพื้นที่การเล่นเพื่อให้ได้ระยะไกล"}
+];
 
-    <div class="stats-bar">
-      <div><i>📚</i> เหลือ <span id="remainingCount">40</span></div>
-      <div><i>✅</i> จำได้ <span id="rememberedCount">0</span></div>
-      <div><i>🔄</i> จำไม่ได้ <span id="forgotCount">0</span></div>
-    </div>
+var deck=[],mem=[],fg=0,cur=null,flip=false;
+var box=document.getElementById('box');
+var rBtn=document.getElementById('rBtn');
+var fBtn=document.getElementById('fBtn');
+var reBtn=document.getElementById('reBtn');
 
-    <div class="flashcard-container" id="flashcardContainer">
-      <!-- Flashcard will be injected here via JS -->
-    </div>
+function sh(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function up(){document.getElementById('r').textContent=deck.length;document.getElementById('m').textContent=mem.length;document.getElementById('f').textContent=fg}
+function render(){
+  if(deck.length===0){
+    box.innerHTML='<div class="card"><div class="term">🎉 ครบ 40 คำแล้ว!</div><div class="hint">กดรีเซ็ทเพื่อเริ่มใหม่</div></div>';
+    rBtn.disabled=true;fBtn.disabled=true;up();return;
+  }
+  cur=deck[0];flip=false;
+  box.innerHTML='<div class="card" id="c"><div class="term">'+cur.t+'</div><div class="pron">'+cur.p+'</div><div class="meaning" id="mm">'+cur.m+'</div><div class="hint" id="hh">👆 คลิกเพื่อดูความหมาย</div></div>';
+  document.getElementById('c').onclick=function(){
+    var mm=document.getElementById('mm'),hh=document.getElementById('hh');
+    if(!flip){mm.style.display='block';hh.style.display='none';flip=true}
+    else{mm.style.display='none';hh.style.display='block';flip=false}
+  };
+  rBtn.disabled=false;fBtn.disabled=false;up();
+}
+rBtn.onclick=function(){if(deck.length===0)return;mem.push(deck.shift());render()};
+fBtn.onclick=function(){if(deck.length===0)return;deck.push(deck.shift());fg++;render()};
+reBtn.onclick=function(){deck=sh(terms.slice());mem=[];fg=0;render()};
 
-    <div class="buttons" id="buttonGroup">
-      <button class="btn btn-forget" id="forgetBtn" disabled>😵 จำไม่ได้</button>
-      <button class="btn btn-remember" id="rememberBtn" disabled>😎 จำได้</button>
-      <button class="btn btn-reset" id="resetBtn">🔄 รีเซ็ท</button>
-    </div>
-
-    <div class="progress-badge" id="progressBadge">
-      <span>📌 คลิกการ์ดเพื่อดูความหมาย</span>
-    </div>
-  </div>
-
-  <script>
-    (function() {
-      // ---------- คำศัพท์ 40 คำ (ความหมายตรงตามชีท + คำอ่าน IPA) ----------
-      const terms = [
-        { term: "ADDRESS", pronunciation: "/əˈdres/", meaning: "ตำแหน่งที่ผู้เล่นยืนก่อนตีลูกออกไป" },
-        { term: "AMATEUR", pronunciation: "/ˈæmətər/", meaning: "ผู้เล่นกอล์ฟเชิงกีฬา ไม่ใช่อาชีพ" },
-        { term: "APPROACH", pronunciation: "/əˈproʊtʃ/", meaning: "การตีลูกขึ้นกรีน หรือบริเวณหน้าธุริน" },
-        { term: "BACKSPIN", pronunciation: "/ˈbækspɪn/", meaning: "การตีให้ลูกหมุนถอยหลัง เพื่อให้ลูกตกและหยุดวิ่งโดยเร็ว" },
-        { term: "BIRDIE", pronunciation: "/ˈbɜːrdi/", meaning: "การทำแต้มน้อยกว่าที่หลุมกำหนด 1 แต้ม" },
-        { term: "BOGEY", pronunciation: "/ˈboʊɡi/", meaning: "การทำแต้มมากกว่าที่หลุมกำหนด 1 แต้ม" },
-        { term: "BUNKER", pronunciation: "/ˈbʌŋkər/", meaning: "บ่อทราย หรือหลุมทราย" },
-        { term: "CADDIE", pronunciation: "/ˈkædi/", meaning: "ใครก็ได้ที่แบกถุงกอล์ฟให้ บางครั้งให้คำแนะนำด้วย" },
-        { term: "CASUAL WATER", pronunciation: "/ˈkæʒuəl ˈwɔːtər/", meaning: "น้ำที่ไหลมารวมกันในบางขณะ ที่ไม่ใช่เป็นบ่อ หรือแอ่งน้ำที่ทำไว้เป็นอุปสรรค" },
-        { term: "CHIP SHOT", pronunciation: "/tʃɪp ʃɑːt/", meaning: "การตีลูกสั้นข้างกรีนให้ไปใกล้หลุม" },
-        { term: "DIVOT", pronunciation: "/ˈdɪvət/", meaning: "รอยที่เกิดจากหน้าไม้ที่ตีลูกลึกลงไปในดิน ทำให้แซะหน้าชิ้นมาด้วย" },
-        { term: "DOGLEG", pronunciation: "/ˈdɔːɡleɡ/", meaning: "หลุมที่มีแนวเลี้ยวไปทางซ้ายหรือขวา" },
-        { term: "DOUBLE BOGEY", pronunciation: "/ˈdʌbəl ˈboʊɡi/", meaning: "การทำแต้มมากกว่าที่หลุมกำหนด 2 แต้ม" },
-        { term: "DRAW", pronunciation: "/drɔː/", meaning: "ลูกที่ตีแล้วโค้งไปทางซ้ายแต่น้อยกว่า “HOOK”" },
-        { term: "DRIVE", pronunciation: "/draɪv/", meaning: "การตีครั้งแรกโดยธรรมดาที่จากหมุดไม้ จากแท่นออก (TEE OFF)" },
-        { term: "DRIVER", pronunciation: "/ˈdraɪvər/", meaning: "ไม้กอล์ฟที่ตีได้ไกลที่สุดในชุด ใช้ในการตีลูกจากแท่นออก (TEE OFF) ในหลุมที่มีระยะไกลๆ" },
-        { term: "EAGLE", pronunciation: "/ˈiːɡəl/", meaning: "การทำแต้มต่ำกว่าที่หลุมกำหนด 2 แต้ม" },
-        { term: "FAIRWAY", pronunciation: "/ˈferweɪ/", meaning: "สนามหญ้าระหว่างแท่นออกกับกรีน" },
-        { term: "FORE", pronunciation: "/fɔːr/", meaning: "คำร้องเตือนให้ทุกคนระวังอันตรายที่เกิดจากการตีลูก" },
-        { term: "GROSS", pronunciation: "/ɡroʊs/", meaning: "แต้มที่ตีจริงต่อรอบหรือตลอดการแข่งขันของนักกอล์ฟ" },
-        { term: "HAZARD", pronunciation: "/ˈhæzərd/", meaning: "หลุมทรายที่สร้างขึ้น" },
-        { term: "HOOK", pronunciation: "/hʊk/", meaning: "การตีลูกที่เลี้ยวซ้ายมากๆ" },
-        { term: "IRONS", pronunciation: "/ˈaɪərnz/", meaning: "ไม้กอล์ฟที่มีหัวเป็นเหล็ก (ยกเว้นไม้พัตเตอร์)" },
-        { term: "LIE", pronunciation: "/laɪ/", meaning: "ตำแหน่งของลูกบนสนามหรือกรีน" },
-        { term: "MATCH PLAY", pronunciation: "/mætʃ pleɪ/", meaning: "เป็นการแข่งขันโดยถือเอาจำนวนหลุมเป็นเครื่องกำหนด ผู้แพ้หรือชนะมากกว่าถือเอาแต้มที่ได้" },
-        { term: "NET", pronunciation: "/net/", meaning: "แต้มรวมครั้งสุดท้ายได้จากการหักแต้มต่อออกแล้ว" },
-        { term: "OUT OF BOUNDS", pronunciation: "/aʊt əv baʊndz/", meaning: "พื้นที่นอกเขตที่กำหนดในสนามกอล์ฟ" },
-        { term: "PAR", pronunciation: "/pɑːr/", meaning: "การทำแต้มได้เท่ากับแต้มที่หลุมกำหนด" },
-        { term: "PITCH SHOT", pronunciation: "/pɪtʃ ʃɑːt/", meaning: "การตีลูกด้วยไม้ที่หน้าไม้เอียงมากๆ เพื่อให้ลูกหยุดเร็วบนกรีน" },
-        { term: "PUNCH SHOT", pronunciation: "/pʌntʃ ʃɑːtɪ/", meaning: "การตีให้ลูกกอล์ฟพุ่ง/ต่ำกว่าปกติ" },
-        { term: "PUTT",", pronunciation: "/pʌt/", meaning: " meaningการตีเบาๆ ให้ลูกกลิ้ง:บนพื้นเพื่อให้ลงหลุม" },
-        { term: " "PUTTER", pronunciation: "/ˈpʌtər/", meaning: "ไม้กอล์ฟที่ใช้สำหรับตีลูกบนกรีน" },
-        { term: "ROUGH", pronunciation: "/rʌf/", meaning: "พื้นที่ที่ไม่มีการดูแลรักษา ไม่ใช่ส่วนของพื้นที่เล่น" },
-        { term: "SHANK", pronunciation: "/ʃæŋk/", meaning: "ตีถูกลอยของหัวไม้ทำให้ลูกวิ่งเลียดไปทางขวา" },
-        { term: "SLICE", pronunciation: "/slaɪs/", meaning: "การตีลูกหมุนตามเข็มนาฬิกา ทำให้ลูกเลี้ยวเป็นวงไปทางขวา" },
-        { term: "STROKE PLAY", pronunciation: "/stroʊk pleเป็นการแข่งขันโดยถือเอาจำนวนครั้งที่ตีเป็นเครื่องกำหนดผู้แพ้หรือชนะ" },
-        { term: "TEE", pronunciation: "/tiː/", meaning: "หมุดที่ปักแล้วเอาลูกวางบนหมุดเพื่อตีในครั้งแรกในหลุมหนึ่งๆ" },
-        { term: "TEE OFF", pronunciation: "/tiː ɔːf/", meaning: "การตีครั้งแรกในหลุมหนึ่งๆ โดยธรรมดาจะตีด้วยไม้ “DRIVER”" },
-        { term: "TOP", pronunciation: "/tɑːp/", meaning: "การตีถูกลูกที่ส่วนบนสุดของลูก" },
-        { term: "WOODS", pronunciation: "/wʊdz/", meaning: "ไม้กอล์ฟที่ก้านยาวๆ สำหรับตีลูกจาก “แท่นออก” หรือบนพื้นที่การเล่นเพื่อให้ได้ระยะไกล" }
-      ];
-
-      // ---------- State ----------
-      let deck = [];
-      let remembered = [];
-      let forgotCount = 0;
-      let currentCard = null;
-      let isFlipped = false;
-
-      // DOM elements
-      const flashcardContainer = document.getElementById('flashcardContainer');
-      const rememberBtn = document.getElementById('rememberBtn');
-      const forgetBtn = document.getElementById('forgetBtn');
-      const resetBtn = document.getElementById('resetBtn');
-      const remainingSpan = document.getElementById('remainingCount');
-      const rememberedSpan = document.getElementById('rememberedCount');
-      const forgotSpan = document.getElementById('forgotCount');
-      const progressBadge = document.getElementById('progressBadge');
-
-      // ---------- Helper functions ----------
-      function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-      }
-
-      function updateStats() {
-        remainingSpan.textContent = deck.length;
-        rememberedSpan.textContent = remembered.length;
-        forgotSpan.textContent = forgotCount;
-      }
-
-      function renderCard() {
-        if (deck.length === 0) {
-          flashcardContainer.innerHTML = `
-            <div class="completed-message">
-              🎉 เยี่ยมมาก! คุณจำได้ครบทั้ง 40 คำแล้ว
-              <small>กดรีเซ็ทเพื่อเริ่มทบทวนใหม่อีกครั้ง</small>
-            </div>
-          `;
-          rememberBtn.disabled = true;
-          forgetBtn.disabled = true;
-          progressBadge.innerHTML = '<span>✨ ทบทวนครบถ้วนแล้ว</span>';
-          updateStats();
-          return;
-        }
-
-        currentCard = deck[0];
-        isFlipped = false;
-
-        flashcardContainer.innerHTML = `
-          <div class="flashcard" id="flashcard">
-            <div class="term">${currentCard.term}</div>
-            <div class="pronunciation">${currentCard.pronunciation}</div>
-            <div class="meaning" id="meaningText" style="display: none;">${currentCard.meaning}</div>
-            <div class="hint" id="hintText">👆 คลิกเพื่อดูความหมาย</div>
-          </div>
-        `;
-
-        const cardEl = document.getElementById('flashcard');
-        if (cardEl) {
-          cardEl.addEventListener('click', flipCard);
-        }
-
-        rememberBtn.disabled = false;
-        forgetBtn.disabled = false;
-        progressBadge.innerHTML = '<span>📌 คลิกการ์ดเพื่อดูความหมาย</span>';
-        updateStats();
-      }
-
-      function flipCard() {
-        if (!currentCard) return;
-        const meaningEl = document.getElementById('meaningText');
-        const hintEl = document.getElementById('hintText');
-        if (!meaningEl) return;
-
-        if (!isFlipped) {
-          meaningEl.style.display = 'block';
-          if (hintEl) hintEl.style.display = 'none';
-          isFlipped = true;
-          progressBadge.innerHTML = '<span>🤔 จำได้หรือไม่? กดปุ่มด้านล่าง</span>';
-        } else {
-          meaningEl.style.display = 'none';
-          if (hintEl) hintEl.style.display = 'block';
-          isFlipped = false;
-          progressBadge.innerHTML = '<span>📌 คลิกการ์ดเพื่อดูความหมาย</span>';
-        }
-      }
-
-      function handleRemember() {
-        if (deck.length === 0) return;
-        const card = deck.shift();
-        remembered.push(card);
-        if (deck.length === 0) {
-          renderCard();
-          updateStats();
-          return;
-        }
-        renderCard();
-        updateStats();
-      }
-
-      function handleForget() {
-        if (deck.length === 0) return;
-        const card = deck.shift();
-        deck.push(card);
-        forgotCount++;
-        renderCard();
-        updateStats();
-      }
-
-      function resetGame() {
-        deck = terms.map(t => ({ ...t }));
-        deck = shuffleArray(deck);
-        remembered = [];
-        forgotCount = 0;
-        currentCard = null;
-        isFlipped = false;
-        renderCard();
-        updateStats();
-        rememberBtn.disabled = false;
-        forgetBtn.disabled = false;
-      }
-
-      // ---------- ผูก event ----------
-      rememberBtn.addEventListener('click', handleRemember);
-      forgetBtn.addEventListener('click', handleForget);
-      resetBtn.addEventListener('click', resetGame);
-
-      resetGame();
-    })();
-  </script>
+deck=sh(terms.slice());
+render();
+</script>
 </body>
 </html>
