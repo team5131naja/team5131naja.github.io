@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Golf Flashcards · ทบทวน 40 คำศัพท์</title>
+  <title>Golf Flashcards · 40 คำศัพท์ (ตรงตามชีท + คำอ่าน)</title>
   <style>
     * {
       box-sizing: border-box;
@@ -94,7 +94,7 @@
 
     .flashcard {
       width: 100%;
-      min-height: 280px;
+      min-height: 300px;
       background: #fcf9f0;
       background-image: radial-gradient(circle at 20% 30%, #ffffff 0%, #f5efe3 100%);
       border-radius: 40px;
@@ -115,7 +115,7 @@
     }
 
     .term {
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       font-weight: 800;
       color: #1b4d3d;
       letter-spacing: 1px;
@@ -123,28 +123,29 @@
       line-height: 1.2;
       word-break: break-word;
       text-shadow: 2px 2px 0 rgba(255, 255, 240, 0.8);
-      margin-bottom: 16px;
+      margin-bottom: 6px;
+    }
+
+    .pronunciation {
+      font-size: 1.15rem;
+      color: #8a7a55;
+      font-weight: 500;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
     }
 
     .meaning {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 500;
       color: #2e5e3f;
       background: rgba(255, 245, 210, 0.6);
-      padding: 12px 24px;
-      border-radius: 100px;
+      padding: 14px 22px;
+      border-radius: 30px;
       max-width: 100%;
       box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
-      line-height: 1.4;
+      line-height: 1.5;
       word-break: break-word;
-    }
-
-    .meaning small {
-      display: block;
-      font-size: 0.9rem;
-      color: #6a7a5e;
-      margin-top: 8px;
-      font-style: italic;
     }
 
     .hint {
@@ -171,7 +172,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s ease;
-      box-shadow: 0, 10px  0 rgba(0, 0,0 ,0, 0.2 ), 0 5px 15px rgba0(0, 0, 0, 0.3);
+      box-shadow: 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
       letter-spacing: 0.5px;
       display: flex;
       align-items: center;
@@ -189,7 +190,7 @@
     .btn:disabled {
       opacity: 0.45;
       transform: translateY(5px);
-      box-shadow: 0 5px 0 rgba(0, 0.2);
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
       pointer-events: none;
       filter: grayscale(0.5);
     }
@@ -259,7 +260,6 @@
       color: #4d5e3e;
     }
 
-    /* Small devices */
     @media (max-width: 500px) {
       .app {
         padding: 18px 14px 28px;
@@ -271,11 +271,15 @@
       }
 
       .term {
-        font-size: 2.1rem;
+        font-size: 2rem;
+      }
+
+      .pronunciation {
+        font-size: 1rem;
       }
 
       .meaning {
-        font-size: 1.3rem;
+        font-size: 1.15rem;
         padding: 10px 16px;
       }
 
@@ -286,7 +290,7 @@
 
       .flashcard {
         padding: 20px 14px;
-        min-height: 240px;
+        min-height: 260px;
       }
     }
   </style>
@@ -321,56 +325,56 @@
 
   <script>
     (function() {
-      // ---------- คำศัพท์ 40 คำ (จาก PDF หน้า 20-24) ----------
+      // ---------- คำศัพท์ 40 คำ (ความหมายตรงตามชีท + คำอ่าน IPA) ----------
       const terms = [
-        { term: "ADDRESS", meaning: "ท่าทางที่ผู้เล่นยืนก่อนตีลูก" },
-        { term: "AMATEUR", meaning: "ผู้เล่นกอล์ฟสมัครเล่น ไม่ใช่อาชีพ" },
-        { term: "APPROACH", meaning: "การตีลูกขึ้นกรีน หรือบริเวณหน้าธุริน" },
-        { term: "BACKSPIN", meaning: "การตีให้ลูกหมุนถอยหลัง เพื่อให้ลูกตกและหยุดวิ่งโดยเร็ว" },
-        { term: "BIRDIE", meaning: "การทำแต้มน้อยกว่าที่หลุมกำหนด 1 แต้ม" },
-        { term: "BOGEY", meaning: "การทำแต้มมากกว่าที่หลุมกำหนด 1 แต้ม" },
-        { term: "BUNKER", meaning: "บ่อทราย หรือหลุมทราย" },
-        { term: "CADDIE", meaning: "คนแบกถุงกอล์ฟให้ และบางครั้งให้คำแนะนำด้วย" },
-        { term: "CASUAL WATER", meaning: "น้ำที่ไหลมารวมกันในบางขณะ ที่ไม่ใช่บ่อหรือแอ่งน้ำที่ทำไว้เป็นอุปสรรค" },
-        { term: "CHIP SHOT", meaning: "การตีลูกสั้นข้างกรีนให้ไปใกล้หลุม" },
-        { term: "DIVOT", meaning: "รอยที่เกิดจากหน้าไม้ที่ตีลูกลึกลงไปในดิน ทำให้แซะหน้าชิ้นมาด้วย" },
-        { term: "DOGLEG", meaning: "หลุมที่มีแนวเลี้ยวไปทางซ้ายหรือขวา" },
-        { term: "DOUBLE BOGEY", meaning: "การทำแต้มมากกว่าที่หลุมกำหนด 2 แต้ม" },
-        { term: "DRAW", meaning: "ลูกที่ตีแล้วโค้งไปทางซ้ายแต่น้อยกว่า “HOOK”" },
-        { term: "DRIVE", meaning: "การตีครั้งแรกโดยธรรมดาที่จากหมุดไม้ จากแท่นออก (TEE OFF)" },
-        { term: "DRIVER", meaning: "ไม้กอล์ฟที่ตีได้ไกลที่สุดในชุด ใช้ตีลูกจากแท่นออก (TEE OFF) ในหลุมที่มีระยะไกลๆ" },
-        { term: "EAGLE", meaning: "การทำแต้มต่ำกว่าที่หลุมกำหนด 2 แต้ม" },
-        { term: "FAIRWAY", meaning: "สนามหญ้าระหว่างแท่นออกกับกรีน" },
-        { term: "FORE", meaning: "คำร้องเตือนให้ทุกคนระวังอันตรายที่เกิดจากการตีลูก" },
-        { term: "GROSS", meaning: "แต้มที่ตีจริงต่อรอบหรือตลอดการแข่งขันของนักกอล์ฟ" },
-        { term: "HAZARD", meaning: "หลุมทรายที่สร้างขึ้น" },
-        { term: "HOOK", meaning: "การตีลูกที่เลี้ยวซ้ายมากๆ" },
-        { term: "IRONS", meaning: "ไม้กอล์ฟที่มีหัวเป็นเหล็ก (ยกเว้นไม้พัตเตอร์)" },
-        { term: "LIE", meaning: "ตำแหน่งของลูกบนสนามหรือกรีน" },
-        { term: "MATCH PLAY", meaning: "เป็นการแข่งขันโดยถือเอาจำนวนหลุมเป็นเครื่องกำหนด ผู้แพ้หรือชนะมากกว่าถือเอาแต้มที่ได้" },
-        { term: "NET", meaning: "แต้มรวมครั้งสุดท้ายได้จากการหักแต้มต่อออกแล้ว" },
-        { term: "OUT OF BOUNDS", meaning: "พื้นที่นอกเขตที่กำหนดในสนามกอล์ฟ" },
-        { term: "PAR", meaning: "การทำแต้มได้เท่ากับแต้มที่หลุมกำหนด" },
-        { term: "PITCH SHOT", meaning: "การตีลูกด้วยไม้ที่หน้าไม้เอียงมากๆ เพื่อให้ลูกหยุดเร็วบนกรีน" },
-        { term: "PUNCH SHOT", meaning: "การตีให้ลูกกอล์ฟพุ่งต่ำกว่าปกติ" },
-        { term: "PUTT", meaning: "การตีเบาๆ ให้ลูกกลิ้งบนพื้นเพื่อให้ลงหลุม" },
-        { term: "PUTTER", meaning: "ไม้กอล์ฟที่ใช้สำหรับตีลูกบนกรีน" },
-        { term: "ROUGH", meaning: "พื้นที่ที่ไม่มีการดูแลรักษา ไม่ใช่ส่วนของพื้นที่เล่น" },
-        { term: "SHANK", meaning: "ตีถูกลอยของหัวไม้ทำให้ลูกวิ่งเลียดไปทางขวา" },
-        { term: "SLICE", meaning: "การตีลูกหมุนตามเข็มนาฬิกา ทำให้ลูกเลี้ยวเป็นวงไปทางขวา" },
-        { term: "STROKE PLAY", meaning: "เป็นการแข่งขันโดยถือเอาจำนวนครั้งที่ตีเป็นเครื่องกำหนดผู้แพ้หรือชนะ" },
-        { term: "TEE", meaning: "หมุดที่ปักแล้วเอาลูกวางบนหมุดเพื่อตีในครั้งแรกในหลุมหนึ่งๆ" },
-        { term: "TEE OFF", meaning: "การตีครั้งแรกในหลุมหนึ่งๆ โดยธรรมดาจะตีด้วยไม้ “DRIVER”" },
-        { term: "TOP", meaning: "การตีถูกลูกที่ส่วนบนสุดของลูก" },
-        { term: "WOODS", meaning: "ไม้กอล์ฟที่ก้านยาวๆ สำหรับตีลูกจาก “แท่นออก” หรือบนพื้นที่การเล่นเพื่อให้ได้ระยะไกล" }
+        { term: "ADDRESS", pronunciation: "/əˈdres/", meaning: "ตำแหน่งที่ผู้เล่นยืนก่อนตีลูกออกไป" },
+        { term: "AMATEUR", pronunciation: "/ˈæmətər/", meaning: "ผู้เล่นกอล์ฟเชิงกีฬา ไม่ใช่อาชีพ" },
+        { term: "APPROACH", pronunciation: "/əˈproʊtʃ/", meaning: "การตีลูกขึ้นกรีน หรือบริเวณหน้าธุริน" },
+        { term: "BACKSPIN", pronunciation: "/ˈbækspɪn/", meaning: "การตีให้ลูกหมุนถอยหลัง เพื่อให้ลูกตกและหยุดวิ่งโดยเร็ว" },
+        { term: "BIRDIE", pronunciation: "/ˈbɜːrdi/", meaning: "การทำแต้มน้อยกว่าที่หลุมกำหนด 1 แต้ม" },
+        { term: "BOGEY", pronunciation: "/ˈboʊɡi/", meaning: "การทำแต้มมากกว่าที่หลุมกำหนด 1 แต้ม" },
+        { term: "BUNKER", pronunciation: "/ˈbʌŋkər/", meaning: "บ่อทราย หรือหลุมทราย" },
+        { term: "CADDIE", pronunciation: "/ˈkædi/", meaning: "ใครก็ได้ที่แบกถุงกอล์ฟให้ บางครั้งให้คำแนะนำด้วย" },
+        { term: "CASUAL WATER", pronunciation: "/ˈkæʒuəl ˈwɔːtər/", meaning: "น้ำที่ไหลมารวมกันในบางขณะ ที่ไม่ใช่เป็นบ่อ หรือแอ่งน้ำที่ทำไว้เป็นอุปสรรค" },
+        { term: "CHIP SHOT", pronunciation: "/tʃɪp ʃɑːt/", meaning: "การตีลูกสั้นข้างกรีนให้ไปใกล้หลุม" },
+        { term: "DIVOT", pronunciation: "/ˈdɪvət/", meaning: "รอยที่เกิดจากหน้าไม้ที่ตีลูกลึกลงไปในดิน ทำให้แซะหน้าชิ้นมาด้วย" },
+        { term: "DOGLEG", pronunciation: "/ˈdɔːɡleɡ/", meaning: "หลุมที่มีแนวเลี้ยวไปทางซ้ายหรือขวา" },
+        { term: "DOUBLE BOGEY", pronunciation: "/ˈdʌbəl ˈboʊɡi/", meaning: "การทำแต้มมากกว่าที่หลุมกำหนด 2 แต้ม" },
+        { term: "DRAW", pronunciation: "/drɔː/", meaning: "ลูกที่ตีแล้วโค้งไปทางซ้ายแต่น้อยกว่า “HOOK”" },
+        { term: "DRIVE", pronunciation: "/draɪv/", meaning: "การตีครั้งแรกโดยธรรมดาที่จากหมุดไม้ จากแท่นออก (TEE OFF)" },
+        { term: "DRIVER", pronunciation: "/ˈdraɪvər/", meaning: "ไม้กอล์ฟที่ตีได้ไกลที่สุดในชุด ใช้ในการตีลูกจากแท่นออก (TEE OFF) ในหลุมที่มีระยะไกลๆ" },
+        { term: "EAGLE", pronunciation: "/ˈiːɡəl/", meaning: "การทำแต้มต่ำกว่าที่หลุมกำหนด 2 แต้ม" },
+        { term: "FAIRWAY", pronunciation: "/ˈferweɪ/", meaning: "สนามหญ้าระหว่างแท่นออกกับกรีน" },
+        { term: "FORE", pronunciation: "/fɔːr/", meaning: "คำร้องเตือนให้ทุกคนระวังอันตรายที่เกิดจากการตีลูก" },
+        { term: "GROSS", pronunciation: "/ɡroʊs/", meaning: "แต้มที่ตีจริงต่อรอบหรือตลอดการแข่งขันของนักกอล์ฟ" },
+        { term: "HAZARD", pronunciation: "/ˈhæzərd/", meaning: "หลุมทรายที่สร้างขึ้น" },
+        { term: "HOOK", pronunciation: "/hʊk/", meaning: "การตีลูกที่เลี้ยวซ้ายมากๆ" },
+        { term: "IRONS", pronunciation: "/ˈaɪərnz/", meaning: "ไม้กอล์ฟที่มีหัวเป็นเหล็ก (ยกเว้นไม้พัตเตอร์)" },
+        { term: "LIE", pronunciation: "/laɪ/", meaning: "ตำแหน่งของลูกบนสนามหรือกรีน" },
+        { term: "MATCH PLAY", pronunciation: "/mætʃ pleɪ/", meaning: "เป็นการแข่งขันโดยถือเอาจำนวนหลุมเป็นเครื่องกำหนด ผู้แพ้หรือชนะมากกว่าถือเอาแต้มที่ได้" },
+        { term: "NET", pronunciation: "/net/", meaning: "แต้มรวมครั้งสุดท้ายได้จากการหักแต้มต่อออกแล้ว" },
+        { term: "OUT OF BOUNDS", pronunciation: "/aʊt əv baʊndz/", meaning: "พื้นที่นอกเขตที่กำหนดในสนามกอล์ฟ" },
+        { term: "PAR", pronunciation: "/pɑːr/", meaning: "การทำแต้มได้เท่ากับแต้มที่หลุมกำหนด" },
+        { term: "PITCH SHOT", pronunciation: "/pɪtʃ ʃɑːt/", meaning: "การตีลูกด้วยไม้ที่หน้าไม้เอียงมากๆ เพื่อให้ลูกหยุดเร็วบนกรีน" },
+        { term: "PUNCH SHOT", pronunciation: "/pʌntʃ ʃɑːtɪ/", meaning: "การตีให้ลูกกอล์ฟพุ่ง/ต่ำกว่าปกติ" },
+        { term: "PUTT",", pronunciation: "/pʌt/", meaning: " meaningการตีเบาๆ ให้ลูกกลิ้ง:บนพื้นเพื่อให้ลงหลุม" },
+        { term: " "PUTTER", pronunciation: "/ˈpʌtər/", meaning: "ไม้กอล์ฟที่ใช้สำหรับตีลูกบนกรีน" },
+        { term: "ROUGH", pronunciation: "/rʌf/", meaning: "พื้นที่ที่ไม่มีการดูแลรักษา ไม่ใช่ส่วนของพื้นที่เล่น" },
+        { term: "SHANK", pronunciation: "/ʃæŋk/", meaning: "ตีถูกลอยของหัวไม้ทำให้ลูกวิ่งเลียดไปทางขวา" },
+        { term: "SLICE", pronunciation: "/slaɪs/", meaning: "การตีลูกหมุนตามเข็มนาฬิกา ทำให้ลูกเลี้ยวเป็นวงไปทางขวา" },
+        { term: "STROKE PLAY", pronunciation: "/stroʊk pleเป็นการแข่งขันโดยถือเอาจำนวนครั้งที่ตีเป็นเครื่องกำหนดผู้แพ้หรือชนะ" },
+        { term: "TEE", pronunciation: "/tiː/", meaning: "หมุดที่ปักแล้วเอาลูกวางบนหมุดเพื่อตีในครั้งแรกในหลุมหนึ่งๆ" },
+        { term: "TEE OFF", pronunciation: "/tiː ɔːf/", meaning: "การตีครั้งแรกในหลุมหนึ่งๆ โดยธรรมดาจะตีด้วยไม้ “DRIVER”" },
+        { term: "TOP", pronunciation: "/tɑːp/", meaning: "การตีถูกลูกที่ส่วนบนสุดของลูก" },
+        { term: "WOODS", pronunciation: "/wʊdz/", meaning: "ไม้กอล์ฟที่ก้านยาวๆ สำหรับตีลูกจาก “แท่นออก” หรือบนพื้นที่การเล่นเพื่อให้ได้ระยะไกล" }
       ];
 
       // ---------- State ----------
-      let deck = [];               // การ์ดที่ยังต้องทบทวน (เก็บ object { term, meaning })
-      let remembered = [];         // การ์ดที่จำได้แล้ว (เพื่อแสดงสถิติ)
-      let forgotCount = 0;         // จำนวนครั้งที่กด "จำไม่ได้" (สะสม)
-      let currentCard = null;      // การ์ดปัจจุบัน
-      let isFlipped = false;       // สถานะการแสดงความหมาย
+      let deck = [];
+      let remembered = [];
+      let forgotCount = 0;
+      let currentCard = null;
+      let isFlipped = false;
 
       // DOM elements
       const flashcardContainer = document.getElementById('flashcardContainer');
@@ -391,16 +395,13 @@
         return arr;
       }
 
-      // อัปเดตตัวเลขสถิติ
       function updateStats() {
         remainingSpan.textContent = deck.length;
         rememberedSpan.textContent = remembered.length;
         forgotSpan.textContent = forgotCount;
       }
 
-      // แสดงการ์ดใบปัจจุบัน (หรือข้อความจบ)
       function renderCard() {
-        // ถ้า deck ว่างเปล่า = ทบทวนครบแล้ว
         if (deck.length === 0) {
           flashcardContainer.innerHTML = `
             <div class="completed-message">
@@ -415,33 +416,29 @@
           return;
         }
 
-        // หยิบการ์ดใบแรกของ deck (ไม่เอาออกจนกว่าจะตัดสินใจ)
         currentCard = deck[0];
         isFlipped = false;
 
-        // สร้าง flashcard
         flashcardContainer.innerHTML = `
           <div class="flashcard" id="flashcard">
             <div class="term">${currentCard.term}</div>
+            <div class="pronunciation">${currentCard.pronunciation}</div>
             <div class="meaning" id="meaningText" style="display: none;">${currentCard.meaning}</div>
             <div class="hint" id="hintText">👆 คลิกเพื่อดูความหมาย</div>
           </div>
         `;
 
-        // ผูก event คลิกการ์ด
         const cardEl = document.getElementById('flashcard');
         if (cardEl) {
           cardEl.addEventListener('click', flipCard);
         }
 
-        // เปิดปุ่ม
         rememberBtn.disabled = false;
         forgetBtn.disabled = false;
         progressBadge.innerHTML = '<span>📌 คลิกการ์ดเพื่อดูความหมาย</span>';
         updateStats();
       }
 
-      // พลิกการ์ด
       function flipCard() {
         if (!currentCard) return;
         const meaningEl = document.getElementById('meaningText');
@@ -449,13 +446,11 @@
         if (!meaningEl) return;
 
         if (!isFlipped) {
-          // แสดงความหมาย
           meaningEl.style.display = 'block';
           if (hintEl) hintEl.style.display = 'none';
           isFlipped = true;
           progressBadge.innerHTML = '<span>🤔 จำได้หรือไม่? กดปุ่มด้านล่าง</span>';
         } else {
-          // ซ่อนความหมาย (กลับด้าน)
           meaningEl.style.display = 'none';
           if (hintEl) hintEl.style.display = 'block';
           isFlipped = false;
@@ -463,42 +458,30 @@
         }
       }
 
-      // เมื่อกด "จำได้"
       function handleRemember() {
         if (deck.length === 0) return;
-        // นำการ์ดใบแรกออกจาก deck
         const card = deck.shift();
         remembered.push(card);
-        // ถ้า deck หมดแล้ว ให้แสดงข้อความจบ
         if (deck.length === 0) {
           renderCard();
           updateStats();
           return;
         }
-        // แสดงการ์ดใบถัดไป
         renderCard();
         updateStats();
       }
 
-      // เมื่อกด "จำไม่ได้"
       function handleForget() {
         if (deck.length === 0) return;
-        // นำการ์ดใบแรกออก แล้วย้ายไปไว้ท้าย deck (เพื่อวนซ้ำ)
         const card = deck.shift();
-        deck.push(card);    // ต่อท้าย
+        deck.push(card);
         forgotCount++;
-        // สุ่มลำดับใหม่เล็กน้อยเพื่อไม่ให้จำตำแหน่ง (optional)
-        // deck = shuffleArray(deck);  // ถ้าไม่ต้องการให้สุ่ม ก็คอมเมนต์บรรทัดนี้
-        // แสดงการ์ดใบใหม่ (ซึ่งคือใบแรกของ deck ที่เพิ่งสลับ)
         renderCard();
         updateStats();
       }
 
-      // รีเซ็ททั้งหมด
       function resetGame() {
-        // สร้าง deck ใหม่จากการ์ดต้นฉบับ
         deck = terms.map(t => ({ ...t }));
-        // สุ่มลำดับการ์ด (เพื่อไม่ให้เรียงตามตัวอักษร)
         deck = shuffleArray(deck);
         remembered = [];
         forgotCount = 0;
@@ -506,7 +489,6 @@
         isFlipped = false;
         renderCard();
         updateStats();
-        // เปิดปุ่ม (ถ้าถูก disable จากตอนจบ)
         rememberBtn.disabled = false;
         forgetBtn.disabled = false;
       }
@@ -516,7 +498,6 @@
       forgetBtn.addEventListener('click', handleForget);
       resetBtn.addEventListener('click', resetGame);
 
-      // เริ่มเกม
       resetGame();
     })();
   </script>
